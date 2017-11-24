@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -e
+
+repo="slofurno/alpine-bash"
+major="1"
+
+prev=$(cat version)
+next=$(($prev+1))
+printf "%d" $next > version
+
+tag="v$major.$next"
+
+docker build -t $repo:$tag -t $repo:latest .
+docker push $repo:$tag
+docker push $repo:latest
+
